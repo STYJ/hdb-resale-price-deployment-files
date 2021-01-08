@@ -75,7 +75,7 @@ def create_figure(towns):
                 'resale_price': 'Average Resale price',
                 'town': 'Location'
             },
-            title='Breakdown of HDB resale price vs size in different locations',
+            title='Breakdown of HDBs resale transactions in the last 5 years',
             height=800,
             hover_data={'floor_area_sqm': False},
             )
@@ -132,6 +132,7 @@ encoded = b64encode(html_bytes).decode()
 
 app = dash.Dash(__name__)
 server = app.server
+app.title = 'HDB Resale Price Breakdown'
 
 # Render chart
 
