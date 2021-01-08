@@ -72,7 +72,7 @@ def create_figure(towns):
             color='town',
             labels={
                 'floor_area_sqm': 'Size of flat (sqm)',
-                'resale_price': 'Average Resale price',
+                'resale_price': 'Average resale price',
                 'town': 'Location'
             },
             title='Breakdown of HDB resale transactions in the last 5 years',
