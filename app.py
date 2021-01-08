@@ -128,9 +128,13 @@ fig.write_html(buffer)
 html_bytes = buffer.getvalue().encode()
 encoded = b64encode(html_bytes).decode()
 
-# Render chart
+# Create new app
 
 app = dash.Dash(__name__)
+server = app.server
+
+# Render chart
+
 app.layout = html.Div([
     html.Label('Towns'),
     dcc.Dropdown(
