@@ -75,7 +75,7 @@ def create_figure(towns):
                 'resale_price': 'Average Resale price',
                 'town': 'Location'
             },
-            title='Breakdown of HDBs resale transactions in the last 5 years',
+            title='Breakdown of HDB resale transactions in the last 5 years',
             height=800,
             hover_data={'floor_area_sqm': False},
             )
