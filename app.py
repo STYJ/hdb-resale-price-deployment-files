@@ -77,7 +77,8 @@ def create_figure(towns):
             },
             title='Breakdown of HDB resale transactions in the last 5 years',
             height=800,
-            hover_data={'floor_area_sqm': False},
+            trendline="lowess",
+            hover_data={'town': False, 'floor_area_sqm': False}
             )
         fig.update_layout(hovermode='x unified')
         fig.update_traces(hovertemplate='%{y}')
