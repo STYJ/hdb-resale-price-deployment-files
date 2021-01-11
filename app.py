@@ -210,4 +210,4 @@ def update_graph(towns):
     return create_resale_size_scatter(towns)
 
 if __name__ == '__main__':
-    app.run_server(debug=True, use_reloader=False)
+    app.run_server()
