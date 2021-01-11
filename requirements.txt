@@ -5,3 +5,4 @@ plotly
 nbformat
 gunicorn
 statsmodels
+python-dotenv
