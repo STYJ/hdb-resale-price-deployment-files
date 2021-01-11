@@ -4,13 +4,19 @@
 import numpy as np
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 import io
 from base64 import b64encode
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
+from dotenv import load_dotenv
+import os
 
+# Load .env variables
+
+load_dotenv()
 
 # Helper functions for cleaning data
 
@@ -22,9 +28,9 @@ def add_year_of_sale_column(df):
     df['year'] = df.month.map(get_year_from_month_column)
 
 
-def get_full_address(df):
+def add_full_address_column(df):
     df['full_address'] = df['block'] + ' ' + df['street_name']
-    df.drop(columns=['block', 'street_name'], inplace=True)
+#     df.drop(columns=['block', 'street_name'], inplace=True)
 
 
 def add_remaining_lease_column(df):
@@ -35,19 +41,28 @@ def add_age_column(df):
     df['age_as_of_2021'] = 2021 - df['lease_commence_date']
 
 
-def rename_cells(df):
+def rename_columns(df):
     df['town'] = df['town'].str.title()
     df['flat_type'] = df['flat_type'].str.title()
-    df['full_address'] = df['full_address'].str.title()
+#     df['full_address'] = df['full_address'].str.title()
+
+# Helper function for formatting string
+
+def human_format(num):
+    num = float('{:.3g}'.format(num))
+    magnitude = 0
+    while abs(num) >= 1000:
+        magnitude += 1
+        num /= 1000.0
+    return '{}{}'.format('{:f}'.format(num).rstrip('0').rstrip('.'), ['', 'K', 'M', 'B', 'T'][magnitude])
 
 
-# Helper functions for creating figure
+# Helper functions for creating scatterplot
 
 def create_option(town):
     return {'label': town, 'value': town}
 
-
-def create_figure(towns):
+def create_resale_size_scatter(towns):
     if len(towns) != 0:
 
         # Create dataframe
@@ -76,7 +91,7 @@ def create_figure(towns):
                 'town': 'Location'
             },
             title='Breakdown of HDB resale transactions in the last 5 years',
-            height=800,
+            height=600,
             trendline="lowess",
             hover_data={'town': False, 'floor_area_sqm': False}
             )
@@ -85,49 +100,89 @@ def create_figure(towns):
         return fig
     else:
         return {}
+    
+def create_map_plot():
+    
+    # Create dataframe
+    
+    hdb_data['psf'] = hdb_data['resale_price'] / (hdb_data['floor_area_sqm'] * 10.7639)
+    df = hdb_data.groupby(['full_address', 'flat_type'])[['resale_price', 'psf']].agg('mean').reset_index()
+    df = df.rename(columns={"resale_price": "avg_resale_price", "psf": "avg_psf"})
+
+    # Format cells
+    
+    df['avg_resale_price'] = df['avg_resale_price'].apply(human_format)
+    df['avg_psf'] = df['avg_psf'].apply(human_format)
+
+    # Add display text column
+    
+    df['display_text'] = df['flat_type'] + ": " + df['avg_resale_price'] + " (" + df['avg_psf'] + ")"
+    df = df.groupby('full_address')['display_text'].apply(lambda x: "%s" % '<br>'.join(x))
+
+    # Merge geocodes with df
+    
+    df = pd.merge(df, geocode, on="full_address")
+
+    # Create figure
+    
+    fig = go.Figure(go.Scattermapbox(
+        name = "",
+        mode = "markers",
+        lon = geocode['lon'],
+        lat = geocode['lat'],
+        customdata = df.display_text,
+        hovertemplate =
+            "Type of flat: Avg resale price (avg psf)<br>" +
+            "--------------------------------------------------<br>" +
+            "%{customdata}"))
+
+    fig.update_layout(
+        hovermode='closest',
+        mapbox = {
+            'accesstoken': token,
+            'center': go.layout.mapbox.Center(
+                lat=1.3521,
+                lon=103.8198
+            ),
+            'zoom': 10},
+        showlegend = False)
+
+    return fig
 
 
-###############################################################################
+# -----------------------------------------------------------------------
 
 # Specify file paths
 
 path_2015 = "./dataset/jan-2015-to-dec-2016.csv"
 path_2017 = "./dataset/jan-2017-onwards.csv"
+geocode_path = "./dataset/full_address_and_geocode.csv"
 
 # Read files
 
 a = pd.read_csv(path_2015)
 b = pd.read_csv(path_2017)
-
-datasets = [a, b]
-
-# Run cleaning helper functions
-
-for x in datasets:
-    add_year_of_sale_column(x)
-    add_remaining_lease_column(x)
-    add_age_column(x)
-    get_full_address(x)
-    rename_cells(x)
-
-# Create full dataset
-
+geocode = pd.read_csv(geocode_path)
 hdb_data = pd.concat([a, b])
 
-# Initialise buffer for chart
+# Cleaning the rest of the data and joining them
 
-buffer = io.StringIO()
+add_year_of_sale_column(hdb_data)
+add_remaining_lease_column(hdb_data)
+add_age_column(hdb_data)
+add_full_address_column(hdb_data)
+rename_columns(hdb_data)
 
-# Create default figure
+# Set mapbox token
 
-fig = create_figure(hdb_data.town.unique())
+token = os.environ.get("MAPBOX")
+px.set_mapbox_access_token(token)
 
-# Write to buffer
 
-fig.write_html(buffer)
+# Create figures
 
-html_bytes = buffer.getvalue().encode()
-encoded = b64encode(html_bytes).decode()
+scatter_plot = create_resale_size_scatter(hdb_data.town.unique())
+map_plot = create_map_plot()
 
 # Create new app
 
@@ -143,18 +198,16 @@ app.layout = html.Div([
         id='towns',
         options=[{'label': t, 'value': t} for t in hdb_data.town.unique()],
         value=hdb_data.town.unique()[:5],
-        multi=True),
-    dcc.Graph(id='chart', figure=fig),
-    html.A(
-        html.Button('Download HTML'),
-        id='download',
-        href='data:text/html;base64,' + encoded,
-        download='plotly_graph.html')])
+        multi=True,
+        searchable=False),
+    dcc.Graph(id='scatter', figure=scatter_plot),
+    dcc.Graph(figure=map_plot)
+    ])
 
 
-@app.callback(Output('chart', 'figure'), Input('towns', 'value'))
+@app.callback(Output('scatter', 'figure'), Input('towns', 'value'))
 def update_graph(towns):
-    return create_figure(towns)
+    return create_resale_size_scatter(towns)
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=True, use_reloader=False)
