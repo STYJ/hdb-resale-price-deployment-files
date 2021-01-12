@@ -154,9 +154,9 @@ def create_map_plot():
 
 # Specify file paths
 
-path_2015 = "./dataset/jan-2015-to-dec-2016.csv"
-path_2017 = "./dataset/jan-2017-onwards.csv"
-geocode_path = "./dataset/full_address_and_geocode.csv"
+path_2015 = "./dataset/original/jan-2015-to-dec-2016.csv"
+path_2017 = "./dataset/original/jan-2017-onwards.csv"
+geocode_path = "./dataset/full-address-and-geocode-cleaned.csv"
 
 # Read files
 
