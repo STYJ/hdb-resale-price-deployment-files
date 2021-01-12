@@ -44,7 +44,7 @@ def add_age_column(df):
 def rename_columns(df):
     df['town'] = df['town'].str.title()
     df['flat_type'] = df['flat_type'].str.title()
-#     df['full_address'] = df['full_address'].str.title()
+    df['full_address'] = df['full_address'].str.title()
 
 # Helper function for formatting string
 
@@ -116,7 +116,7 @@ def create_map_plot():
 
     # Add display text column
     
-    df['display_text'] = df['flat_type'] + ": " + df['avg_resale_price'] + " (" + df['avg_psf'] + ")"
+    df['display_text'] = df['flat_type'] + ": " + df['avg_resale_price'] + " ($" + df['avg_psf'] + " psf)"
     df = df.groupby('full_address')['display_text'].apply(lambda x: "%s" % '<br>'.join(x))
 
     # Merge geocodes with df
@@ -132,12 +132,13 @@ def create_map_plot():
         lat = geocode['lat'],
         customdata = df.display_text,
         hovertemplate =
-            "Type of flat: Avg resale price (avg psf)<br>" +
-            "--------------------------------------------------<br>" +
-            "%{customdata}"))
+            "%{text}<br>" +
+            "%{customdata}",
+        text=df.full_address))
 
     fig.update_layout(
         hovermode='closest',
+        height=600,
         mapbox = {
             'accesstoken': token,
             'center': go.layout.mapbox.Center(
@@ -210,4 +211,4 @@ def update_graph(towns):
     return create_resale_size_scatter(towns)
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run_server(debug=False)
