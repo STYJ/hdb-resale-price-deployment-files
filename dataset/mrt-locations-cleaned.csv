@@ -1,0 +1,194 @@
+,planning_area,station_name,station_code,year_of_opening,address,lat,lon
+0,Ang Mo Kio,Yio Chu Kang,NS15,1987,3000 Ang Mo Kio Avenue 8,1.3691149,103.8454342
+1,Ang Mo Kio,Ang Mo Kio,NS16,1987,2450 Ang Mo Kio Avenue 8,1.3691149,103.8454342
+2,Ang Mo Kio,Ang Mo Kio,CR11,2029,,,
+3,Bedok,Tanah Merah,EW4,1989,920 New Upper Changi Road,1.3236038,103.9273405
+4,Bedok,Bedok,EW5,1989,315 New Upper Changi Road,1.3236038,103.9273405
+5,Bedok,Kembangan,EW6,1989,55 Sims Avenue East,1.3236038,103.9273405
+6,Bedok,Kaki Bukit,DT28,2017,30 Kaki Bukit Avenue 1,1.3236038,103.9273405
+7,Bedok,Bedok North,DT29,2017,651 Bedok North Road,1.3236038,103.9273405
+8,Bedok,Bedok Reservoir,DT30,2017,371 Bedok North Avenue 3,1.3236038,103.9273405
+9,Bishan,Bishan,NS17,1987,200 Bishan Road,1.3525845,103.8352116
+10,Bishan,Bishan,CC15,2009,17 Bishan Place,1.3525845,103.8352116
+11,Bishan,Marymount,CC16,2009,60 Marymount Road,1.3525845,103.8352116
+12,Bukit Batok,Bukit Batok,NS2,1990,10 Bukit Batok Central,1.3590288,103.7636796
+13,Bukit Batok,Bukit Gombak,NS3,1990,802 Bukit Batok West Avenue 5,1.3590288,103.7636796
+14,Bukit Batok,Bukit Panjang,DT1,2015,950 Upper Bukit Timah Road,1.3590288,103.7636796
+15,Bukit Batok,Bukit Panjang,BP6,1999,11 Petir Road,1.3590288,103.7636796
+16,Bukit Batok,Cashew,DT2,2015,1 Cashew Road,1.3590288,103.7636796
+17,Bukit Batok,Hillview,DT3,2015,510 Upper Bukit Timah Road,1.3590288,103.7636796
+18,Bukit Merah,Outram Park,EW16,1987,10 Outram Road,1.2819046,103.8239182
+19,Bukit Merah,Outram Park,NE3,2003,300 Eu Tong Sen Street,1.2819046,103.8239182
+20,Bukit Merah,Outram Park,TE17,2021,13 Outram Road,1.2819046,103.8239182
+21,Bukit Merah,Tiong Bahru,EW17,1988,300 Tiong Bahru Road,1.2819046,103.8239182
+22,Bukit Merah,Redhill,EW18,1988,920 Tiong Bahru Road,1.2819046,103.8239182
+23,Bukit Merah,HarbourFront,NE1,2003,81 Telok Blangah Road,1.2819046,103.8239182
+24,Bukit Merah,HarbourFront,CC29,2011,83 Telok Blangah Road,1.2819046,103.8239182
+25,Bukit Merah,Labrador Park,CC27,2011,701 Telok Blangah Road,1.2819046,103.8239182
+26,Bukit Merah,Telok Blangah,CC28,2011,463 Telok Blangah Road,1.2819046,103.8239182
+27,Bukit Panjang,Bukit Panjang,DT1,2015,950 Upper Bukit Timah Road,1.3774142,103.7719498
+28,Bukit Panjang,Bukit Panjang,BP6,1999,11 Petir Road,1.3774142,103.7719498
+29,Bukit Panjang,Cashew,DT2,2015,1 Cashew Road,1.3774142,103.7719498
+30,Bukit Panjang,Hillview,DT3,2015,510 Upper Bukit Timah Road,1.3774142,103.7719498
+31,Bukit Timah,Farrer Road,CC20,2011,71 Farrer Road,1.3294113,103.8020777
+32,Bukit Timah,Holland Village,CC21,2011,200 Holland Avenue,1.3294113,103.8020777
+33,Bukit Timah,Beauty World,DT5,2015,101 Upper Bukit Timah Road,1.3294113,103.8020777
+34,Bukit Timah,King Albert Park,DT6,2015,2 Blackmore Drive,1.3294113,103.8020777
+35,Bukit Timah,Sixth Avenue,DT7,2015,777 Bukit Timah Road,1.3294113,103.8020777
+36,Bukit Timah,Tan Kah Kee,DT8,2015,651 Bukit Timah Road,1.3294113,103.8020777
+37,Changi,Changi Airport,CG2,2002,70 Airport Boulevard,1.3450101,103.9832089
+38,Choa Chu Kang,Choa Chu Kang,NS4,1990,10 Choa Chu Kang Avenue 4,1.3839803,103.7469611
+39,Choa Chu Kang,Choa Chu Kang,BP1,1999,15 Choa Chu Kang Avenue 4,1.3839803,103.7469611
+40,Choa Chu Kang,Choa Chu Kang,JS1,2026,,,
+41,Choa Chu Kang,Yew Tee,NS5,1996,61 Choa Chu Kang Drive,1.3839803,103.7469611
+42,Choa Chu Kang,Bukit Panjang,DT1,2015,950 Upper Bukit Timah Road,1.3839803,103.7469611
+43,Choa Chu Kang,Bukit Panjang,BP6,1999,11 Petir Road,1.3839803,103.7469611
+44,Clementi,Clementi,EW23,1988,3150 Commonwealth Avenue West,1.3161811,103.7649377
+45,Downtown Core,City Hall,NS25,1987,150 North Bridge Road,1.2866961,103.8535097
+46,Downtown Core,City Hall,EW13,1987,150 North Bridge Road,1.2866961,103.8535097
+47,Downtown Core,Raffles Place,NS26,1987,5 Raffles Place,1.2866961,103.8535097
+48,Downtown Core,Raffles Place,EW14,1987,5 Raffles Place,1.2866961,103.8535097
+49,Downtown Core,Marina Bay,NS27,1989,21 Park Street,1.2866961,103.8535097
+50,Downtown Core,Marina Bay,CE2,2012,23 Park Street,1.2866961,103.8535097
+51,Downtown Core,Marina Bay,TE20,2021,25 Park Street,1.2866961,103.8535097
+52,Downtown Core,Bugis,EW12,1989,320 Victoria Street,1.2866961,103.8535097
+53,Downtown Core,Bugis,DT14,2013,191 Rochor Road,1.2866961,103.8535097
+54,Downtown Core,Tanjong Pagar,EW15,1987,120 Maxwell Road,1.2866961,103.8535097
+55,Downtown Core,Esplanade,CC3,2010,90 Bras Basah Road,1.2866961,103.8535097
+56,Downtown Core,Promenade,CC4,2010,2 Temasek Avenue,1.2866961,103.8535097
+57,Downtown Core,Promenade,DT15,2013,10 Temasek Avenue,1.2866961,103.8535097
+58,Downtown Core,Nicole Highway,CC5,2010,20 Republic Avenue,1.2866961,103.8535097
+59,Downtown Core,Bayfront,CE1,2012,11 Bayfront Avenue,1.2866961,103.8535097
+60,Downtown Core,Bayfront,DT16,2013,11 Bayfront Avenue,1.2866961,103.8535097
+61,Downtown Core,Downtown,DT17,2013,15 Central Boulevard,1.2866961,103.8535097
+62,Downtown Core,Telok Ayer,DT18,2013,7 Cross Street,1.2866961,103.8535097
+63,Geylang,Eunos,EW7,1989,30 Eunos Crescent,1.3200544,103.8917746
+64,Geylang,Paya Lebar,EW8,1989,30 Paya Lebar Road,1.3200544,103.8917746
+65,Geylang,Paya Lebar,CC9,2010,15 Paya Lebar Road,1.3200544,103.8917746
+66,Geylang,Aljunied,EW9,1989,81 Lorong 25 Geylang,1.3200544,103.8917746
+67,Geylang,Mountbatten,CC7,2010,301 Mountbatten Road,1.3200544,103.8917746
+68,Geylang,Dakota,CC8,2010,201 Old Airport Road,1.3200544,103.8917746
+69,Geylang,MacPherson,CC10,2010,171 Paya Lebar Road,1.3200544,103.8917746
+70,Geylang,MacPherson,DT26,2017,10 Circuit Link,1.3200544,103.8917746
+71,Geylang,Mattar,DT25,2017,60 Merpati Road,1.3200544,103.8917746
+72,Geylang,Ubi,DT27,2017,51 Ubi Avenue 2,1.3200544,103.8917746
+73,Hougang,Kovan,NE13,2003,900 Upper Serangoon Road,1.3612182,103.8862529
+74,Hougang,Hougang,NE14,2003,80 Hougang Central,1.3612182,103.8862529
+75,Hougang,Hougang,CR8,2029,,,
+76,Hougang,Tai Seng,CC11,2010,33 Upper Paya Lebar Road,1.3612182,103.8862529
+77,Jurong East,Jurong East,NS1,1988,10 Jurong East Street 12,1.3328572,103.7435522
+78,Jurong East,Jurong East,EW24,1988,10 Jurong East Street 12,1.3328572,103.7435522
+79,Jurong East,Jurong East,JE5,2027,,,
+80,Jurong East,Chinese Garden,EW25,1988,151 Boon Lay Way,1.3328572,103.7435522
+81,Jurong West,Lakeside,EW26,1988,201 Boon Lay Way,1.3403898,103.7089875
+82,Jurong West,Boon Lay,EW27,1990,301 Boon Lay Way,1.3403898,103.7089875
+83,Jurong West,Boon Lay,JS8,2026,,,
+84,Jurong West,Pioneer,EW28,2009,31 Jurong West Street 63,1.3403898,103.7089875
+85,Kallang,Kallang,EW10,1989,5 Sims Avenue,1.3100334,103.8651056
+86,Kallang,Lavender,EW11,1989,50 Kallang Road,1.3100334,103.8651056
+87,Kallang,Little India,NE7,2003,60 Bukit Timah Road,1.3100334,103.8651056
+88,Kallang,Little India,DT12,2015,62 Bukit Timah Road,1.3100334,103.8651056
+89,Kallang,Farrer Park,NE8,2003,250 Race Course Road,1.3100334,103.8651056
+90,Kallang,Boon Keng,NE9,2003,900 Serangoon Road,1.3100334,103.8651056
+91,Kallang,Stadium,CC6,2010,3 Stadium Walk,1.3100334,103.8651056
+92,Kallang,Mountbatten,CC7,2010,301 Mountbatten Road,1.3100334,103.8651056
+93,Kallang,Bendemeer,DT23,2017,11 Kallang Bahru,1.3100334,103.8651056
+94,Kallang,Geylang Bahru,DT24,2017,541 Kallang Bahru,1.3100334,103.8651056
+95,Museum,Dhoby Ghaut,NS24,1987,11 Orchard Road,1.2966147,103.8485095
+96,Museum,Dhoby Ghaut,NE6,2003,60 Orchard Road,1.2966147,103.8485095
+97,Museum,Dhoby Ghaut,CC1,2010,13 Orchard Road,1.2966147,103.8485095
+98,Museum,Bras Basah,CC2,2010,65 Bras Basah Road,1.2966147,103.8485095
+99,Museum,Fort Canning,DT20,2017,170 River Valley Road,1.2966147,103.8485095
+100,Museum,Bencoolen,DT21,2017,31 Bencoolen Street,1.2966147,103.8485095
+101,Newton,Newton,NS21,1987,49 Scotts Road,1.3075517,103.8403765
+102,Newton,Newton,DT11,2015,235 Bukit Timah Road,1.3075517,103.8403765
+103,Novena,Novena,NS20,1987,250 Thomson Road,1.3208572,103.8424319
+104,Novena,Stevens,DT10,2015,92 Stevens Road,1.3208572,103.8424319
+105,Novena,Stevens,TE11,2021,82 Stevens Road,1.3208572,103.8424319
+106,Orchard,Orchard,NS22,1987,437 Orchard Road,1.3048205,103.8321984
+107,Orchard,Orchard,TE14,2021,301 Orchard Boulevard,1.3048205,103.8321984
+108,Orchard,Somerset,NS23,1987,1 Somerset Road,1.3048205,103.8321984
+109,Outram,Outram Park,EW16,1987,10 Outram Road,1.2848825,103.8438992
+110,Outram,Outram Park,NE3,2003,300 Eu Tong Sen Street,1.2848825,103.8438992
+111,Outram,Outram Park,TE17,2021,13 Outram Road,1.2848825,103.8438992
+112,Outram,Chinatown,NE4,2003,151 New Bridge Road,1.2848825,103.8438992
+113,Outram,Chinatown,DT19,2013,91 Upper Cross Street,1.2848825,103.8438992
+114,Outram,Telok Ayer,DT18,2013,7 Cross Street,1.2848825,103.8438992
+115,Pasir Ris,Pasir Ris,EW1,1989,10 Pasir Ris Central,1.3720937,103.9473728
+116,Pasir Ris,Pasir Ris,CR5,2029,,,
+117,Pasir Ris,Pasir Ris,CP1,2031,,,
+118,Pioneer,Joo Koon,EW29,2009,91 Joo Koon Circle,1.2857497,103.8079907
+119,Pioneer,Gul Circle,EW30,2017,7A Tuas Road,1.2857497,103.8079907
+120,Punggol,Punggol,NE17,2003,70 Punggol Central,1.3984457,103.9072046
+121,Punggol,Punggol,PTC,2005,70 Punggol Central,1.3984457,103.9072046
+122,Punggol,Punggol,CP4,2031,,,
+123,Queenstown,Queenstown,EW19,1988,301 Commonwealth Avenue,1.2941664,103.7861271
+124,Queenstown,Commonwealth,EW20,1988,375 Commonwealth Avenue,1.2941664,103.7861271
+125,Queenstown,Buona Vista,EW21,1988,100 North Buona Vista Road,1.2941664,103.7861271
+126,Queenstown,Buona Vista,CC22,2011,150 North Buona Vista Road,1.2941664,103.7861271
+127,Queenstown,Dover,EW22,2001,200 Commonwealth Avenue West,1.2941664,103.7861271
+128,Queenstown,Holland Village,CC21,2011,200 Holland Avenue,1.2941664,103.7861271
+129,Queenstown,One-north,CC23,2011,9 Ayer Rajah Avenue,1.2941664,103.7861271
+130,Queenstown,Kent Ridge,CC24,2011,301 South Buona Vista Road,1.2941664,103.7861271
+131,Queenstown,Haw Par Villa,CC25,2011,270 Pasir Panjang Road,1.2941664,103.7861271
+132,Queenstown,Pasir Panjang,CC26,2011,119 Pasir Panjang Road,1.2941664,103.7861271
+133,River Valley,Orchard,NS22,1987,437 Orchard Road,1.2959376,103.8360614
+134,River Valley,Orchard,TE14,2021,301 Orchard Boulevard,1.2959376,103.8360614
+135,Rochor,Bugis,EW12,1989,320 Victoria Street,1.3051345,103.8509134
+136,Rochor,Bugis,DT14,2013,191 Rochor Road,1.3051345,103.8509134
+137,Rochor,Little India,NE7,2003,60 Bukit Timah Road,1.3051345,103.8509134
+138,Rochor,Little India,DT12,2015,62 Bukit Timah Road,1.3051345,103.8509134
+139,Rochor,Farrer Park,NE8,2003,250 Race Course Road,1.3051345,103.8509134
+140,Rochor,Rochor,DT13,2015,11 Rochor Canal Road,1.3051345,103.8509134
+141,Rochor,Bencoolen,DT21,2017,31 Bencoolen Street,1.3051345,103.8509134
+142,Rochor,Jalan Besar,DT22,2017,90 Jalan Besar,1.3051345,103.8509134
+143,Sembawang,Sembawang,NS11,1996,11 Canberra Road,1.4491107,103.8184954
+144,Sembawang,Canberra,NS12,2019,11 Canberra Link,1.4491107,103.8184954
+145,Sengkang,Buangkok,NE15,2006,10 Sengkang Central,1.3868121,103.8914433
+146,Sengkang,Sengkang,NE16,2003,5 Sengkang Square,1.3868121,103.8914433
+147,Sengkang,Sengkang,STC,2003,5 Sengkang Square,1.3868121,103.8914433
+148,Serangoon,Serangoon,NE12,2003,600 Upper Serangoon Road,1.3553567,103.8678708
+149,Serangoon,Serangoon,CC13,2009,21 Serangoon Central,1.3553567,103.8678708
+150,Serangoon,Bartley,CC12,2009,90 Bartley Road,1.3553567,103.8678708
+151,Serangoon,Lorong Chuan,CC14,2009,150 Serangoon Avenue 3,1.3553567,103.8678708
+152,Singapore River,Clarke Quay,NE5,2003,10 Eu Tong Sen Street,1.2895263,103.8397852
+153,Singapore River,Fort Canning,DT20,2017,170 River Valley Road,1.2895263,103.8397852
+154,Straits View,Marina Bay,NS27,1989,21 Park Street,1.2785521,103.8527413
+155,Straits View,Marina Bay,CE2,2012,23 Park Street,1.2785521,103.8527413
+156,Straits View,Marina Bay,TE20,2021,25 Park Street,1.2785521,103.8527413
+157,Straits View,Marina South Pier,NS28,2014,33 Marina Coastal Drive,1.2785521,103.8527413
+158,Sungei Kadut,Kranji,NS7,1996,960 Woodlands Road,1.4073821,103.7561919
+159,Tampines,Tampines,EW2,1989,20 Tampines Central 1,1.3495907,103.9567879
+160,Tampines,Tampines,DT32,2017,15 Tampines Central 1,1.3495907,103.9567879
+161,Tampines,Simei,EW3,1989,30 Simei Street 3,1.3495907,103.9567879
+162,Tampines,Expo,CG1,2001,21 Changi South Avenue 1,1.3495907,103.9567879
+163,Tampines,Expo,DT35,2017,2 Expo Drive,1.3495907,103.9567879
+164,Tampines,Tampines West,DT31,2017,2 Tampines Avenue 4,1.3495907,103.9567879
+165,Tampines,Tampines East,DT33,2017,20 Tampines Avenue 7,1.3495907,103.9567879
+166,Tampines,Upper Changi,DT34,2017,690 Upper Changi Road East,1.3495907,103.9567879
+167,Tanglin,Botanic Gardens,CC19,2011,100 Cluny Park Road,1.306932,103.8188845
+168,Tanglin,Botanic Gardens,DT9,2015,491 Bukit Timah Road,1.306932,103.8188845
+169,Tanglin,Farrer Road,CC20,2011,71 Farrer Road,1.306932,103.8188845
+170,Tanglin,Stevens,DT10,2015,92 Stevens Road,1.306932,103.8188845
+171,Tanglin,Stevens,TE11,2021,82 Stevens Road,1.306932,103.8188845
+172,Toa Payoh,Braddell,NS18,1987,377 Lorong 1 Toa Payoh,1.3343035,103.8563265
+173,Toa Payoh,Toa Payoh,NS19,1987,510 Lorong 6 Toa Payoh,1.3343035,103.8563265
+174,Toa Payoh,Potong Pasir,NE10,2003,55 Upper Serangoon Road,1.3343035,103.8563265
+175,Toa Payoh,Woodleigh,NE11,2011,400 Upper Serangoon Road,1.3343035,103.8563265
+176,Toa Payoh,Tai Seng,CC11,2010,33 Upper Paya Lebar Road,1.3343035,103.8563265
+177,Toa Payoh,Bartley,CC12,2009,90 Bartley Road,1.3343035,103.8563265
+178,Toa Payoh,Caldecott,CC17,2011,38 Toa Payoh Rise,1.3343035,103.8563265
+179,Toa Payoh,Caldecott,TE9,2021,1 Toa Payoh Link,1.3343035,103.8563265
+180,Tuas,Gul Circle,EW30,2017,7A Tuas Road,1.2949472,103.6304833
+181,Tuas,Tuas Crescent,EW31,2017,90 Pioneer Road,1.2949472,103.6304833
+182,Tuas,Tuas West Road,EW32,2017,131 Pioneer Road,1.2949472,103.6304833
+183,Tuas,Tuas Link,EW33,2017,20 Tuas West Drive,1.2949472,103.6304833
+184,Woodlands,Marsiling,NS8,1996,71 Woodlands Avenue 3,1.4381922,103.7889597
+185,Woodlands,Woodlands,NS9,1996,30 Woodlands Avenue 2,1.4381922,103.7889597
+186,Woodlands,Woodlands,TE2,2020,11 Woodlands Square,1.4381922,103.7889597
+187,Woodlands,Admiralty,NS10,1996,70 Woodlands Avenue 7,1.4381922,103.7889597
+188,Woodlands,Woodlands North,TE1,2020,20 Woodlands North Coast Road,1.4381922,103.7889597
+189,Woodlands,Woodlands North,RTS,2026,20 Woodlands North Coast Road,1.4381922,103.7889597
+190,Woodlands,Woodlands South,TE3,2020,30 Woodlands Drive 17,1.4381922,103.7889597
+191,Yishun,Yishun,NS13,1988,301 Yishun Avenue 2,1.430368,103.8353628
+192,Yishun,Khatib,NS14,1988,201 Yishun Avenue 2,1.430368,103.8353628
