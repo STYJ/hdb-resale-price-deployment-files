@@ -18,35 +18,27 @@ import os
 
 load_dotenv()
 
-# Helper functions for cleaning data
+# Set mapbox token
 
-def get_year_from_month_column(month):
-    return int(month[:month.find('-')])
+token = os.environ.get("MAPBOX")
+px.set_mapbox_access_token(token)
 
+# Setup app details
 
-def add_year_of_sale_column(df):
-    df['year'] = df.month.map(get_year_from_month_column)
+app = dash.Dash(__name__)
+server = app.server
+app.title = 'HDB Resale Price Breakdown'
 
-
-def add_full_address_column(df):
-    df['full_address'] = df['block'] + ' ' + df['street_name']
-#     df.drop(columns=['block', 'street_name'], inplace=True)
-
-
-def add_remaining_lease_column(df):
-    df['remaining_lease'] = np.int64(99) - (df.year - df['lease_commence_date'])
+################# HELPER FUNCTIONS START #################
 
 
-def add_age_column(df):
-    df['age_as_of_2021'] = 2021 - df['lease_commence_date']
+def round_down(num, divisor):
+    return num - (num % divisor)
 
 
-def rename_columns(df):
-    df['town'] = df['town'].str.title()
-    df['flat_type'] = df['flat_type'].str.title()
-    df['full_address'] = df['full_address'].str.title()
+def round_up(num, divisor):
+    return round_down(num, divisor) + divisor
 
-# Helper function for formatting string
 
 def human_format(num):
     num = float('{:.3g}'.format(num))
@@ -57,158 +49,199 @@ def human_format(num):
     return '{}{}'.format('{:f}'.format(num).rstrip('0').rstrip('.'), ['', 'K', 'M', 'B', 'T'][magnitude])
 
 
-# Helper functions for creating scatterplot
+def create_df(towns, types, sizes, years):
+    df = hdb_data[hdb_data.town.isin(towns)]
+    df = df[df.flat_type.isin(types)]
+    df = df[(df.year >= years[0]) & (df.year <= years[1])]
+    df = df[(df.floor_area_sqm >= sizes[0]) & (df.floor_area_sqm <= sizes[1])]
+    return df
 
-def create_option(town):
-    return {'label': town, 'value': town}
 
-def create_resale_size_scatter(towns):
-    if len(towns) != 0:
+def create_pvs_scatter_plot(df):
 
-        # Create dataframe
+    # Query dataframe
 
-        df = hdb_data[hdb_data.town.isin(towns)].groupby(
-            ['town', 'floor_area_sqm']
-        ).resale_price.mean().reset_index()
+    df = df.groupby(
+        ['town', 'floor_area_sqm']
+    ).resale_price.mean().reset_index()
 
-        # Clean dataframe
+    # Create figure
 
-        df['resale_price'] = df['resale_price'].astype('int')
-        df['floor_area_sqm'] = df['floor_area_sqm'].astype('int')
+    fig = px.scatter(
+        df,
+        x='floor_area_sqm',
+        y='resale_price',
+        color='town',
+        labels={
+            'floor_area_sqm': 'Size of flat (sqm)',
+            'resale_price': 'Average resale price',
+            'town': 'Location'
+        },
+        title='Breakdown of HDB resale transactions in the last 5 years',
+        height=600,
+        trendline="lowess",
+        hover_data={'town': False, 'floor_area_sqm': False}
+    )
+    fig.update_layout(hovermode='x unified')
+    fig.update_traces(hovertemplate='%{y}')
+    return fig
 
-        towns = df.town.unique()
 
-        # Create figure
+def create_map_scatter_plot(df):
 
-        fig = px.scatter(
-            df,
-            x='floor_area_sqm',
-            y='resale_price',
-            color='town',
-            labels={
-                'floor_area_sqm': 'Size of flat (sqm)',
-                'resale_price': 'Average resale price',
-                'town': 'Location'
-            },
-            title='Breakdown of HDB resale transactions in the last 5 years',
-            height=600,
-            trendline="lowess",
-            hover_data={'town': False, 'floor_area_sqm': False}
-            )
-        fig.update_layout(hovermode='x unified')
-        fig.update_traces(hovertemplate='%{y}')
-        return fig
-    else:
-        return {}
-    
-def create_map_plot():
-    
-    # Create dataframe
-    
-    hdb_data['psf'] = hdb_data['resale_price'] / (hdb_data['floor_area_sqm'] * 10.7639)
-    df = hdb_data.groupby(['full_address', 'flat_type'])[['resale_price', 'psf']].agg('mean').reset_index()
-    df = df.rename(columns={"resale_price": "avg_resale_price", "psf": "avg_psf"})
+    # Query dataframe
+
+    geocode = df[['full_address', 'lat', 'lon']]
+    df['psf'] = df['resale_price'] / (df['floor_area_sqm'] * 10.7639)
+    df = df.groupby(['full_address', 'flat_type'])[
+        ['resale_price', 'psf']].agg('mean').reset_index()
+    df = df.rename(
+        columns={"resale_price": "avg_resale_price", "psf": "avg_psf"})
 
     # Format cells
-    
+
     df['avg_resale_price'] = df['avg_resale_price'].apply(human_format)
     df['avg_psf'] = df['avg_psf'].apply(human_format)
 
     # Add display text column
-    
-    df['display_text'] = df['flat_type'] + ": " + df['avg_resale_price'] + " ($" + df['avg_psf'] + " psf)"
-    df = df.groupby('full_address')['display_text'].apply(lambda x: "%s" % '<br>'.join(x))
+
+    df['display_text'] = df['flat_type'] + ": " + \
+        df['avg_resale_price'] + " ($" + df['avg_psf'] + " psf)"
+    df = df.groupby('full_address')['display_text'].apply(
+        lambda x: "%s" % '<br>'.join(x))
 
     # Merge geocodes with df
-    
+
     df = pd.merge(df, geocode, on="full_address")
 
     # Create figure
-    
+
     fig = go.Figure(go.Scattermapbox(
-        name = "",
-        mode = "markers",
-        lon = geocode['lon'],
-        lat = geocode['lat'],
-        customdata = df.display_text,
-        hovertemplate =
-            "%{text}<br>" +
-            "%{customdata}",
+        name="",
+        mode="markers",
+        lon=df['lon'],
+        lat=df['lat'],
+        customdata=df.display_text,
+        hovertemplate="%{text}<br>" +
+        "%{customdata}",
         text=df.full_address))
 
     fig.update_layout(
         hovermode='closest',
         height=600,
-        mapbox = {
+        mapbox={
             'accesstoken': token,
             'center': go.layout.mapbox.Center(
                 lat=1.3521,
                 lon=103.8198
             ),
             'zoom': 10},
-        showlegend = False)
+        showlegend=False)
 
     return fig
 
-
-# -----------------------------------------------------------------------
-
-# Specify file paths
-
-path_2015 = "./dataset/original/jan-2015-to-dec-2016.csv"
-path_2017 = "./dataset/original/jan-2017-onwards.csv"
-geocode_path = "./dataset/full-address-and-geocode-cleaned.csv"
+################# HELPER FUNCTIONS END #################
 
 # Read files
 
-a = pd.read_csv(path_2015)
-b = pd.read_csv(path_2017)
-geocode = pd.read_csv(geocode_path)
-hdb_data = pd.concat([a, b])
 
-# Cleaning the rest of the data and joining them
+hdb_data = pd.read_csv(
+    './dataset/2000-2020-nov-resale-price-data.csv', index_col=False)
+geocode = pd.read_csv("./dataset/2000-2020-nov-geocodes.csv", index_col=False)
+hdb_data = pd.merge(hdb_data, geocode, on="full_address")
 
-add_year_of_sale_column(hdb_data)
-add_remaining_lease_column(hdb_data)
-add_age_column(hdb_data)
-add_full_address_column(hdb_data)
-rename_columns(hdb_data)
+# Clean data
 
-# Set mapbox token
-
-token = os.environ.get("MAPBOX")
-px.set_mapbox_access_token(token)
+hdb_data['resale_price'] = hdb_data['resale_price'].astype(int)
+hdb_data['floor_area_sqm'] = hdb_data['floor_area_sqm'].astype(int)
 
 
-# Create figures
+# Set initial values
 
-scatter_plot = create_resale_size_scatter(hdb_data.town.unique())
-map_plot = create_map_plot()
+towns = hdb_data.town.unique()
+towns.sort()
 
-# Create new app
+flat_types = hdb_data.flat_type.unique()
+flat_types.sort()
 
-app = dash.Dash(__name__)
-server = app.server
-app.title = 'HDB Resale Price Breakdown'
+min_size = round_down(hdb_data.floor_area_sqm.min(), 5)
+max_size = round_up(hdb_data.floor_area_sqm.max(), 5)
 
-# Render chart
+min_year = 2015
+max_year = hdb_data.year.max()
+
+# Create initial dataframe and figures
+
+df = create_df(towns[:5], flat_types[:5], [
+               min_size, max_size], [min_year, max_year])
+pvs_scatter_plot = create_pvs_scatter_plot(df)
+map_scatter_plot = create_map_scatter_plot(df)
 
 app.layout = html.Div([
-    html.Label('Towns'),
+    html.H1('HDB Resale Price Breakdown'),
+    html.Br(),
     dcc.Dropdown(
         id='towns',
-        options=[{'label': t, 'value': t} for t in hdb_data.town.unique()],
-        value=hdb_data.town.unique()[:5],
+        options=[{'label': t, 'value': t} for t in towns],
+        value=towns[:5],
         multi=True,
-        searchable=False),
-    dcc.Graph(id='scatter', figure=scatter_plot),
-    dcc.Graph(figure=map_plot)
+        searchable=False,
+        placeholder="Select a few locations..."),
+    html.Br(),
+    dcc.Dropdown(
+        id='types',
+        options=[{'label': t, 'value': t} for t in flat_types],
+        value=flat_types[:5],
+        multi=True,
+        searchable=False,
+        placeholder="Select a few flat types..."),
+    html.Br(),
+    dcc.RangeSlider(
+        id='sizes',
+        min=min_size,
+        max=max_size,
+        step=5,
+        marks=dict([(s, {'label': str(s)})
+                    for s in list(range(min_size, max_size + 1, 5))]),
+        value=[min_size, max_size]
+    ),
+    html.Br(),
+    dcc.RangeSlider(
+        id='years',
+        min=min_year,
+        max=max_year,
+        step=1,
+        marks=dict([(y, {'label': str(y)})
+                    for y in list(range(min_year, max_year + 1))]),
+        value=[min_year, max_year]
+    ),
+    html.Br(),
+    dcc.Graph(id='pvs_scatter_plot', figure=pvs_scatter_plot),
+    dcc.Graph(id='map_scatter_plot', figure=map_scatter_plot),
+
+
+    # 2 figures
+    # 4 responsive inputs
+], id='container')
+
+
+@app.callback([
+    Output('pvs_scatter_plot', 'figure'),
+    Output('map_scatter_plot', 'figure'),
+], [Input('towns', 'value'),
+    Input('types', 'value'),
+    Input('sizes', 'value'),
+    Input('years', 'value'),
     ])
+def update(towns, types, sizes, years):
+    if towns and types and sizes and years:
+        df = create_df(towns, types, sizes, years)
+        pvs_scatter_plot = create_pvs_scatter_plot(df)
+        map_scatter_plot = create_map_scatter_plot(df)
+        return [pvs_scatter_plot, map_scatter_plot]
+    else:
+        return [{}, {}]
 
-
-@app.callback(Output('scatter', 'figure'), Input('towns', 'value'))
-def update_graph(towns):
-    return create_resale_size_scatter(towns)
 
 if __name__ == '__main__':
-    app.run_server(debug=False)
+    app.run_server(debug=False, use_reloader=True)
