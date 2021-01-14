@@ -6,3 +6,4 @@ nbformat
 gunicorn
 statsmodels
 python-dotenv
+ipykernel
