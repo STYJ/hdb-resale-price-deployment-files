@@ -25,7 +25,8 @@ px.set_mapbox_access_token(token)
 
 # Setup app details
 
-app = dash.Dash(__name__)
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 app.title = 'HDB Resale Price Breakdown'
 
@@ -77,7 +78,7 @@ def create_pvs_scatter_plot(df):
             'resale_price': 'Average resale price',
             'town': 'Location'
         },
-        title='Breakdown of HDB resale transactions in the last 5 years',
+        title='Understanding how resale price scales with size of flat in different locations',
         height=600,
         trendline="lowess",
         hover_data={'town': False, 'floor_area_sqm': False}
@@ -136,7 +137,8 @@ def create_map_scatter_plot(df):
                 lon=103.8198
             ),
             'zoom': 10},
-        showlegend=False)
+        showlegend=False,
+        title="Comparing avg resale price and psf between different types of flat within some location")
 
     return fig
 
@@ -164,8 +166,9 @@ towns.sort()
 flat_types = hdb_data.flat_type.unique()
 flat_types.sort()
 
-min_size = round_down(hdb_data.floor_area_sqm.min(), 5)
-max_size = round_up(hdb_data.floor_area_sqm.max(), 5)
+interval = 25
+min_size = round_down(hdb_data.floor_area_sqm.min(), interval)
+max_size = round_up(hdb_data.floor_area_sqm.max(), interval)
 
 min_year = 2015
 max_year = hdb_data.year.max()
@@ -178,51 +181,66 @@ pvs_scatter_plot = create_pvs_scatter_plot(df)
 map_scatter_plot = create_map_scatter_plot(df)
 
 app.layout = html.Div([
-    html.H1('HDB Resale Price Breakdown'),
+    html.Div([
+        html.H1('HDB Resale Price Breakdown')
+    ], className='row'),
     html.Br(),
-    dcc.Dropdown(
-        id='towns',
-        options=[{'label': t, 'value': t} for t in towns],
-        value=towns[:5],
-        multi=True,
-        searchable=False,
-        placeholder="Select a few locations..."),
+    html.Div([
+        html.Label('Towns: ', className='two columns'),
+        dcc.Dropdown(
+            id='towns',
+            options=[{'label': t, 'value': t} for t in towns],
+            value=towns[:5],
+            multi=True,
+            searchable=False,
+            placeholder="Select a few locations...", className='ten columns'),
+    ], className='row'),
     html.Br(),
-    dcc.Dropdown(
-        id='types',
-        options=[{'label': t, 'value': t} for t in flat_types],
-        value=flat_types[:5],
-        multi=True,
-        searchable=False,
-        placeholder="Select a few flat types..."),
+    html.Div([
+        html.Label('Flat types: ', className='two columns'),
+        dcc.Dropdown(
+            id='types',
+            options=[{'label': t, 'value': t} for t in flat_types],
+            value=flat_types[:5],
+            multi=True,
+            searchable=False,
+            placeholder="Select a few flat types...", className='ten columns'),
+    ], className='row'),
     html.Br(),
-    dcc.RangeSlider(
-        id='sizes',
-        min=min_size,
-        max=max_size,
-        step=5,
-        marks=dict([(s, {'label': str(s)})
-                    for s in list(range(min_size, max_size + 1, 5))]),
-        value=[min_size, max_size]
-    ),
+    html.Div([
+        html.Label('Size of flat: ', className='two columns'),
+        dcc.RangeSlider(
+            id='sizes',
+            min=min_size,
+            max=max_size,
+            step=5,
+            marks=dict([(s, {'label': str(s)})
+                        for s in list(range(min_size, max_size + 1, interval))]),
+            value=[min_size, max_size], className='nine columns'
+        ),
+    ], className='row'),
     html.Br(),
-    dcc.RangeSlider(
-        id='years',
-        min=min_year,
-        max=max_year,
-        step=1,
-        marks=dict([(y, {'label': str(y)})
-                    for y in list(range(min_year, max_year + 1))]),
-        value=[min_year, max_year]
-    ),
+    html.Div([
+        html.Label('Years: ', className='two columns'),
+        dcc.RangeSlider(
+            id='years',
+            min=min_year,
+            max=max_year,
+            step=1,
+            marks=dict([(y, {'label': str(y)})
+                        for y in list(range(min_year, max_year + 1))]),
+            value=[min_year, max_year], className='nine columns'
+        ),
+    ], className='row'),
     html.Br(),
-    dcc.Graph(id='pvs_scatter_plot', figure=pvs_scatter_plot),
-    dcc.Graph(id='map_scatter_plot', figure=map_scatter_plot),
-
-
-    # 2 figures
-    # 4 responsive inputs
-], id='container')
+    html.Div([
+        dcc.Graph(id='pvs_scatter_plot', figure=pvs_scatter_plot),
+    ], className='row'),
+    html.Br(),
+    html.Div([
+        dcc.Graph(id='map_scatter_plot', figure=map_scatter_plot),
+    ], className='row'),
+], id='container', className='container')
 
 
 @app.callback([
